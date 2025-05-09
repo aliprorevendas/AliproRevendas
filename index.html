@@ -166,6 +166,49 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Notification styles */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        .notification-dropdown.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+        }
+
+        .bell-btn {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .bell-btn:hover {
+            color: #6366f1;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="text-dark">
@@ -179,10 +222,24 @@
                 <div class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AliPro<span class="font-medium">Revendas</span></div>
             </div>
             <div class="flex items-center space-x-6">
-                <button class="relative text-gray-500 hover:text-primary transition-colors">
-                    <i class="fas fa-bell text-xl"></i>
-                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
+                <div class="relative">
+                    <button id="notificationBtn" class="bell-btn text-gray-500 transition-all">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                    <div id="notificationDropdown" class="notification-dropdown">
+                        <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                            <h3 class="font-semibold">Notificações</h3>
+                            <button class="text-sm text-primary">Marcar todas como lidas</button>
+                        </div>
+                        <div class="p-8 text-center">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bell-slash text-gray-400 text-xl"></i>
+                            </div>
+                            <h4 class="font-medium text-gray-700 mb-1">Nenhuma notificação</h4>
+                            <p class="text-sm text-gray-500">Você não tem novas notificações no momento</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex items-center space-x-3">
                     <div class="avatar-placeholder w-10 h-10 rounded-full flex items-center justify-center shadow">
                         <i class="fas fa-user text-primary"></i>
@@ -212,7 +269,7 @@
                             </button>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <!-- Stats Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
@@ -229,7 +286,7 @@
                                 <span class="text-green-500 text-sm font-medium" id="monthly-tasks">+0 este mês</span>
                             </div>
                         </div>
-                                                                    
+                                                                            
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                             <div class="flex justify-between items-start">
                                 <div>
@@ -244,7 +301,7 @@
                                 <span class="text-green-500 text-sm font-medium" id="monthly-profit">+0% este mês</span>
                             </div>
                         </div>
-                                                                    
+                                                                            
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                             <div class="flex justify-between items-start">
                                 <div>
@@ -260,7 +317,7 @@
                             </div>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <!-- How it works section -->
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-8">
                         <h2 class="text-xl font-bold mb-4 text-center">Como funciona a revenda na AliPro?</h2>
@@ -300,11 +357,11 @@
                                 Na AliPro, você não recebe o produto fisicamente. Ao comprar, você está adquirindo o direito sobre um item que será automaticamente revendível por nossos canais.
                                 Toda logística, divulgação e entrega ao cliente final são feitas por nós.
                                 Você lucra sem estoque, sem envio e sem exposição pessoal — com repasse automático assim que a revenda acontecer.
-                                
+                                                            
                             </p>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <!-- Products Section -->
                     <div class="mb-4 flex justify-between items-center">
                         <h2 class="text-lg font-semibold">Produtos para revenda</h2>
@@ -317,7 +374,7 @@
                             </select>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <!-- Products Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <!-- Product 1 -->
@@ -352,7 +409,7 @@
                                 </div>
                             </div>
                         </div>
-                                                                    
+                                                                            
                         <!-- Product 2 -->
                         <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
                             <div class="product-image-container">
@@ -385,7 +442,7 @@
                                 </div>
                             </div>
                         </div>
-                                                                    
+                                                                            
                         <!-- Product 3 -->
                         <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
                             <div class="product-image-container">
@@ -418,7 +475,7 @@
                                 </div>
                             </div>
                         </div>
-                                                                    
+                                                                            
                         <!-- Product 4 -->
                         <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
                             <div class="product-image-container">
@@ -459,7 +516,7 @@
             <div id="level-page" class="page">
                 <div class="flex flex-col items-center py-8">
                     <h1 class="text-3xl font-bold mb-6 text-center">Seu Progresso</h1>
-                                                                    
+                                                                        
                     <div class="level-card rounded-2xl p-8 max-w-2xl w-full mb-8">
                         <div class="flex flex-col md:flex-row items-center">
                             <div class="w-32 h-32 gradient-bg rounded-full flex items-center justify-center mb-6 md:mb-0 md:mr-8">
@@ -468,7 +525,7 @@
                             <div class="text-center md:text-left">
                                 <h2 class="text-2xl font-bold mb-2" id="current-level">Nível Basic</h2>
                                 <p class="text-gray-600 mb-4">Continue realizando tarefas para subir de nível e desbloquear benefícios exclusivos!</p>
-                                                                    
+                                                                            
                                 <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
                                     <div class="gradient-bg h-4 rounded-full" id="level-progress-bar" style="width: 1%"></div>
                                 </div>
@@ -479,7 +536,7 @@
                             </div>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
                         <!-- Current Level Benefits -->
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
@@ -507,7 +564,7 @@
                                 </li>
                             </ul>
                         </div>
-                                                                    
+                                                                            
                         <!-- Next Level Benefits -->
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                             <div class="flex items-center mb-4">
@@ -534,7 +591,7 @@
                                 </li>
                             </ul>
                         </div>
-                                                                    
+                                                                            
                         <!-- Level Progress -->
                         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                             <div class="flex items-center mb-4">
@@ -574,7 +631,7 @@
                             </div>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <div class="mt-8 text-center">
                         <h3 class="text-xl font-semibold mb-4">Como subir de nível mais rápido?</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
@@ -609,7 +666,7 @@
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="md:w-2/3">
                         <h1 class="text-2xl font-bold mb-6">Solicitar Saque</h1>
-                                                                    
+                                                                        
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
                             <div class="flex justify-between items-center mb-6">
                                 <div>
@@ -618,7 +675,7 @@
                                 </div>
                                 <div class="text-3xl font-bold text-green-500" id="withdraw-balance">R$ 00,00</div>
                             </div>
-                                                                    
+                                                                            
                             <div class="border-t border-gray-100 pt-6 mb-6">
                                 <h3 class="text-lg font-semibold mb-4">Método de saque</h3>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -642,7 +699,7 @@
                                     </div>
                                 </div>
                             </div>
-                                                                    
+                                                                            
                             <div class="border-t border-gray-100 pt-6">
                                 <h3 class="text-lg font-semibold mb-4">Informações para saque</h3>
                                 <div class="space-y-4">
@@ -663,7 +720,7 @@
                             </div>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <div class="md:w-1/3">
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-6">
                             <h2 class="text-lg font-semibold mb-4">Resumo do saque</h2>
@@ -685,11 +742,11 @@
                                     <span class="font-bold text-primary">R$ 00,00</span>
                                 </div>
                             </div>
-                                                                    
+                                                                            
                             <button class="w-full gradient-bg hover:opacity-90 text-white py-3 px-4 rounded-lg transition-all flex items-center justify-center mb-4" onclick="openWithdrawModal()">
                                 <i class="fas fa-paper-plane mr-2"></i> Confirmar Saque
                             </button>
-                                                                    
+                                                                            
                             <div class="text-xs text-gray-500">
                                 <p class="mb-2">Os saques são processados manualmente por nossa equipe de pagamentos.</p>
                                 <p>Para dúvidas, entre em contato com nosso suporte.</p>
@@ -704,7 +761,7 @@
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="md:w-2/3">
                         <h1 class="text-2xl font-bold mb-6">Central de Ajuda</h1>
-                                                                    
+                                                                        
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
                             <div class="flex items-start mb-6">
                                 <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
@@ -712,10 +769,10 @@
                                 </div>
                                 <div>
                                     <h2 class="text-lg font-semibold">Precisa de ajuda?</h2>
-                                    <p class="text-gray-500">Nossa equipe está pronta para te ajudar</p>
+                                    <p class="text-gray-500">Nuestra equipe está pronta para te ajudar</p>
                                 </div>
                             </div>
-                                                                    
+                                                                            
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                                 <div class="border border-gray-200 rounded-xl p-4 hover:border-primary transition-colors cursor-pointer">
                                     <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-3">
@@ -732,7 +789,7 @@
                                     <p class="text-sm text-gray-500">Aprenda a usar a plataforma</p>
                                 </div>
                             </div>
-                                                                    
+                                                                            
                             <div class="border-t border-gray-100 pt-6">
                                 <h3 class="text-lg font-semibold mb-4">Entre em contato</h3>
                                 <div class="space-y-4">
@@ -761,7 +818,7 @@
                             </div>
                         </div>
                     </div>
-                                                                    
+                                                                        
                     <div class="md:w-1/3">
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-6">
                             <h2 class="text-lg font-semibold mb-4">Atendimento rápido</h2>
@@ -794,11 +851,11 @@
                                     </div>
                                 </div>
                             </div>
-                                                                    
+                                                                            
                             <button class="w-full whatsapp-btn" onclick="openWhatsApp()">
                                 <i class="fab fa-whatsapp"></i> Falar com Suporte
                             </button>
-                                                                    
+                                                                            
                             <div class="text-xs text-gray-500">
                                 <p class="mb-2"><i class="fas fa-clock mr-1"></i> Horário de atendimento: Segunda a Sexta, das 9h às 18h</p>
                                 <p><i class="fas fa-info-circle mr-1"></i> Para emergências fuera do horário, envie um e-mail.</p>
@@ -854,10 +911,7 @@
     <!-- ============================================== -->
     <!-- CONFIGURAÇÃO DO PROGRESSO DO USUÁRIO           -->
     <!-- ============================================== -->
-    <!-- 
-        MODIFIQUE APENAS OS VALORES ABAIXO PARA ATUALIZAR 
-        TODO O PROGRESSO DO USUÁRIO NO SITE 
-    -->
+    <!--          MODIFIQUE APENAS OS VALORES ABAIXO PARA ATUALIZAR          TODO O PROGRESSO DO USUÁRIO NO SITE      -->
     <script>
         // Configuração do progresso do usuário
         const userProgress = {
@@ -888,11 +942,11 @@
             // Meta de lucro para próximo nível
             profitGoal: 1000
         };
-        
+
         // ==============================================
         // NÃO MODIFIQUE O CÓDIGO ABAIXO DESTA LINHA
         // ==============================================
-        
+
         // Função para formatar valores monetários
         function formatCurrency(value) {
             return new Intl.NumberFormat('pt-BR', { 
@@ -901,72 +955,72 @@
                 minimumFractionDigits: 2
             }).format(value);
         }
-        
+
         // Função para calcular porcentagem
         function calculatePercentage(value, total) {
             return Math.min(100, Math.round((value / total) * 100));
         }
-        
+
         // Função para atualizar todos os elementos do progresso
         function updateProgress() {
             // Calcular valores derivados
             const tasksPercentage = calculatePercentage(userProgress.completedTasks, userProgress.nextLevelGoal);
             const profitPercentage = calculatePercentage(userProgress.totalProfit, userProgress.profitGoal);
             const daysPercentage = calculatePercentage(userProgress.activeDays, 30);
-            
+
             // Atualizar dashboard
             document.getElementById('completed-tasks').textContent = userProgress.completedTasks;
             document.getElementById('monthly-tasks').textContent = `+${userProgress.monthlyTasks} este mês`;
             document.getElementById('total-profit').textContent = formatCurrency(userProgress.totalProfit);
             document.getElementById('monthly-profit').textContent = `+${userProgress.monthlyProfitPercentage}% este mês`;
             document.getElementById('available-balance').textContent = formatCurrency(userProgress.availableBalance);
-            
+
             // Atualizar página de nível
             document.getElementById('current-level').textContent = `Nível ${userProgress.level}`;
             document.getElementById('user-level').textContent = `Nível ${userProgress.level}`;
             document.getElementById('level-progress-bar').style.width = `${tasksPercentage}%`;
             document.getElementById('level-percentage').textContent = `${tasksPercentage}% completo`;
             document.getElementById('next-level-text').textContent = `Próximo nível: ${userProgress.nextLevelGoal} tarefas`;
-            
+
             document.getElementById('tasks-completed').textContent = `${userProgress.completedTasks}/${userProgress.nextLevelGoal}`;
             document.getElementById('tasks-progress-bar').style.width = `${tasksPercentage}%`;
-            
+
             document.getElementById('accumulated-profit').textContent = `${formatCurrency(userProgress.totalProfit)}/${formatCurrency(userProgress.profitGoal)}`;
             document.getElementById('profit-progress-bar').style.width = `${profitPercentage}%`;
-            
+
             document.getElementById('active-days').textContent = `${userProgress.activeDays}/30`;
             document.getElementById('days-progress-bar').style.width = `${daysPercentage}%`;
-            
+
             // Atualizar página de saque
             document.getElementById('withdraw-balance').textContent = formatCurrency(userProgress.availableBalance);
         }
-        
+
         // Atualizar progresso quando a página carregar
         document.addEventListener('DOMContentLoaded', function() {
             // Set username from localStorage or default
             const username = localStorage.getItem('username') || 'Usuário';
             document.getElementById('username').textContent = username;
-                                    
+                                            
             // Navigation buttons
             const navButtons = document.querySelectorAll('[data-page]');
             const pages = document.querySelectorAll('.page');
-                                    
+                                            
             navButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const targetPage = this.getAttribute('data-page');
-                                    
+                                                    
                     // Update active state for buttons
                     navButtons.forEach(btn => {
                         btn.classList.remove('active');
                     });
                     this.classList.add('active');
-                                    
+                                                    
                     // Show target page
                     pages.forEach(page => {
                         page.classList.remove('active');
                     });
                     document.getElementById(targetPage).classList.add('active');
-                                    
+                                                    
                     // Scroll to top when changing pages
                     window.scrollTo({
                         top: 0,
@@ -974,7 +1028,7 @@
                     });
                 });
             });
-                                    
+                                            
             // Product buttons (would normally redirect to checkout)
             const productButtons = document.querySelectorAll('.product-card button');
             productButtons.forEach(button => {
@@ -984,26 +1038,48 @@
                     alert(`Você será redirecionado para comprar "${productName}" para revenda.`);
                 });
             });
+
+            // Notification button functionality
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationDropdown = document.getElementById('notificationDropdown');
             
+            notificationBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('active');
+                
+                // Add slight animation to the bell
+                this.classList.add('animate-bell');
+                setTimeout(() => {
+                    this.classList.remove('animate-bell');
+                }, 300);
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn) {
+                    notificationDropdown.classList.remove('active');
+                }
+            });
+
             // Atualizar o progresso do usuário
             updateProgress();
         });
-        
+
         // Modal functions
         function openWithdrawModal() {
             document.getElementById('withdrawModal').style.display = 'flex';
         }
-        
+
         function closeWithdrawModal() {
             document.getElementById('withdrawModal').style.display = 'none';
         }
-        
+
         function openWhatsApp() {
             const whatsappUrl = 'https://wa.me/5511999999999?text=Olá,%20preciso%20de%20ajuda%20com%20o%20saque%20na%20plataforma%20AliPro%20Revendas.';
             window.open(whatsappUrl, '_blank');
             closeWithdrawModal();
         }
-        
+
         // Close modal when clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('withdrawModal');
@@ -1011,6 +1087,23 @@
                 closeWithdrawModal();
             }
         }
+
+        // Add animation to the bell icon
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .animate-bell {
+                animation: bellShake 0.3s ease;
+            }
+            
+            @keyframes bellShake {
+                0% { transform: rotate(0deg); }
+                25% { transform: rotate(10deg); }
+                50% { transform: rotate(-10deg); }
+                75% { transform: rotate(5deg); }
+                100% { transform: rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
