@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe como Afiliado Automático | Sistema 100% Automatizado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .count-up {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .badge {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .automation-badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body class="text-dark">
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 h-1.5 bg-gray-200 z-50">
+        <div class="progress-bar h-full" id="progressBar"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white">
+        <div class="container mx-auto px-6 py-24 md:py-32">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <div class="bg-white text-primary font-bold py-1 px-4 rounded-full inline-flex items-center badge">
+                            <i class="fas fa-bolt mr-2"></i> OPORTUNIDADE LIMITADA
+                        </div>
+                        <div class="automation-badge text-white font-bold py-1 px-4 rounded-full inline-flex items-center">
+                            <i class="fas fa-robot mr-2"></i> 100% AUTOMATIZADO
+                        </div>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Sistema de Afiliados Automático - Você Compra, a Plataforma Revende!</h1>
+                    <p class="text-xl mb-8 opacity-90">Ganhe de R$100 a R$500 por dia sem precisar divulgar. Nosso sistema faz tudo por você!</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#como-funciona" class="bg-white text-primary font-bold py-4 px-8 rounded-lg hover:bg-opacity-90 transition-all text-center">
+                            <i class="fas fa-info-circle mr-2"></i> Como Funciona
+                        </a>
+                        <a href="https://wa.me/5518981319814?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20automático%20de%20afiliados"
+                            target="_blank"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg transition-all flex items-center justify-center">
+                            <i class="fab fa-whatsapp mr-2 text-xl"></i> Fale Conosco
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center">
+                        <div class="flex -space-x-2">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm opacity-80">+<span class="count-up" data-count="5000">0</span> afiliados no sistema automático</p>
+                            <div class="flex items-center mt-1">
+                                <i class="fas fa-star text-yellow-300 mr-1"></i>
+                                <i class="fas fa-star text-yellow-300 mr-1"></i>
+                                <i class="fas fa-star text-yellow-300 mr-1"></i>
+                                <i class="fas fa-star text-yellow-300 mr-1"></i>
+                                <i class="fas fa-star text-yellow-300 mr-1"></i>
+                                <span class="text-sm ml-2">4.9/5 (2.437 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                              alt="Sistema automático de afiliados"
+                              class="rounded-2xl shadow-2xl w-full max-w-md floating">
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg hidden md:block">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 p-3 rounded-full mr-3">
+                                    <i class="fas fa-robot text-green-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Sistema automático</p>
+                                    <p class="font-bold text-lg">100% Autônomo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white" id="como-funciona">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Como funciona nosso sistema automático</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Você só precisa adquirir o sistema, nós fazemos todo o trabalho de venda e você recebe os lucros</p>
+            </div>
+                                            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card-hover bg-gray-50 rounded-xl p-8">
+                    <div class="feature-icon rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-cart-plus text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">1. Adquira o Sistema</h3>
+                    <p class="text-gray-600 text-center">Faça parte do nosso sistema de afiliados automático com um pequeno investimento inicial.</p>
+                </div>
+                                                                
+                <div class="card-hover bg-gray-50 rounded-xl p-8">
+                    <div class="feature-icon rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-robot text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">2. Plataforma Trabalha por Você</h3>
+                    <p class="text-gray-600 text-center">Nosso sistema automatizado faz todas as vendas, você não precisa divulgar nada.</p>
+                </div>
+                                                                
+                <div class="card-hover bg-gray-50 rounded-xl p-8">
+                    <div class="feature-icon rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-money-bill-wave text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center">3. Receba seus Lucros</h3>
+                    <p class="text-gray-600 text-center">Acompanhe seus ganhos crescendo automaticamente na sua conta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                    <h2 class="text-3xl font-bold mb-6">Tudo sobre nosso sistema automático</h2>
+                    <p class="text-gray-600 mb-6">Entenda como você pode começar a ganhar dinheiro sem precisar trabalhar, nosso sistema faz tudo por você.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Sistema 100% automatizado - zero trabalho</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Sem necessidade de divulgação ou marketing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Suporte completo via WhatsApp</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Lucros de até 50% por venda gerada automaticamente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Pagamentos semanais via PIX</span>
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/5518981319814?text=Olá,%20quero%20adquirir%20o%20sistema%20automático%20de%20afiliados"
+                        target="_blank"
+                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg transition-all inline-flex items-center">
+                        <i class="fab fa-whatsapp mr-2 text-xl"></i> Quero o Sistema Automático
+                    </a>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white rounded-2xl p-8 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4">Perguntas Frequentes</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium">Preciso divulgar ou trabalhar?</h4>
+                                <p class="text-gray-600 text-sm mt-1">Não! O sistema é 100% automático. Você só precisa adquirir e a plataforma faz todo o trabalho de venda.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Quanto preciso investir?</h4>
+                                <p class="text-gray-600 text-sm mt-1">Apenas um pequeno valor para acesso ao sistema automatizado. Sem mensalidades ou custos adicionais.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Como recebo meus lucros?</h4>
+                                <p class="text-gray-600 text-sm mt-1">Pagamentos semanais diretamente na sua conta bancária ou via Pix, de forma automática.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Quanto posso ganhar?</h4>
+                                <p class="text-gray-600 text-sm mt-1">Nosso sistema gera em média R$3.200/mês por afiliado, sem que você precise fazer nada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">O que nossos afiliados automáticos dizem</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Depoimentos reais de pessoas que estão ganhando sem trabalhar</p>
+            </div>
+                                            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Ana Carolina</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Comprei o sistema e em 1 semana já estava recebendo meus primeiros lucros sem fazer absolutamente nada!"</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>Ganhos: R$ 4.500/mês</span>
+                    </div>
+                </div>
+                                                                
+                <div class="testimonial-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Ricardo Almeida</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"O melhor investimento que fiz. O sistema trabalha sozinho e eu recebo todo mês sem precisar fazer nada."</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>Ganhos: R$ 5.800/mês</span>
+                    </div>
+                </div>
+                                                                
+                <div class="testimonial-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Fernanda Santos</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Como mãe solo, esse sistema mudou minha vida. Recebo dinheiro automaticamente enquanto cuido do meu filho."</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>Ganhos: R$ 3.700/mês</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Resultados do Nosso Sistema Automático</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Veja o que nosso sistema está gerando para os afiliados</p>
+            </div>
+                    
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="text-5xl font-bold text-primary mb-2">
+                        <span class="count-up" data-count="95">0</span>%
+                    </div>
+                    <p class="text-gray-600">Taxa de satisfação dos afiliados</p>
+                </div>
+                                
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="text-5xl font-bold text-secondary mb-2">
+                        R$ <span class="count-up" data-count="3200">0</span>+
+                    </div>
+                    <p class="text-gray-600">Lucro médio mensal por afiliado</p>
+                </div>
+                                
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="text-5xl font-bold text-primary mb-2">
+                        <span class="count-up" data-count="5000">0</span>+
+                    </div>
+                    <p class="text-gray-600">Afiliados no sistema automático</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 hero-gradient text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para começar a ganhar dinheiro automaticamente?</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">Adquira nosso sistema hoje e comece a receber sem precisar trabalhar.</p>
+                                            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+                <div class="bg-white bg-opacity-10 p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold mb-2">+5.000</div>
+                    <div class="text-sm opacity-80">Afiliados automáticos</div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold mb-2">R$100+</div>
+                    <div class="text-sm opacity-80">Por dia em média</div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold mb-2">0</div>
+                    <div class="text-sm opacity-80">Trabalho necessário</div>
+                </div>
+            </div>
+                                            
+            <a href="https://wa.me/5518981319814?text=Olá,%20quero%20adquirir%20o%20sistema%20automático%20de%20afiliados"
+                target="_blank"
+                class="bg-white text-primary font-bold py-4 px-12 rounded-lg hover:bg-opacity-90 transition-all inline-flex items-center mx-auto pulse-animation">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> Quero o Sistema Automático
+            </a>
+                                            
+            <div class="mt-8 text-sm opacity-80">
+                <i class="fas fa-lock mr-2"></i> 100% seguro • Sem spam • Suporte humano real
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold">AfiliadosAuto</div>
+                    </div>
+                    <p class="text-gray-400 max-w-xs">O sistema de afiliados 100% automático que trabalha por você.</p>
+                </div>
+                                                                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-bold mb-4">Links Rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#como-funciona" class="text-gray-400 hover:text-white transition-colors">Como Funciona</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Depoimentos</a></li>
+                        </ul>
+                    </div>
+                                                                        
+                    <div>
+                        <h3 class="font-bold mb-4">Contato</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fab fa-whatsapp text-green-400 mr-2"></i>
+                                <a href="https://wa.me/5518981319814" class="text-gray-400 hover:text-white transition-colors">(18) 98131-9814</a>
+                            </li>
+                        </ul>
+                    </div>
+                                                                        
+                    <div>
+                        <h3 class="font-bold mb-4">Redes Sociais</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://wa.me/5518981319814" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition-colors">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 AfiliadosAuto. Todos os direitos reservados.</p>
+                <p class="mt-2">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/5518981319814?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20automático%20de%20afiliados"
+            target="_blank"
+            class="bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-all transform hover:scale-110">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress bar on scroll
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('scroll', function() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollProgress = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollProgress + '%';
+            });
+                    
+            // Count-up animation
+            const countUpElements = document.querySelectorAll('.count-up');
+            const options = {
+                threshold: 0.5
+            };
+                    
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const target = parseInt(element.getAttribute('data-count'));
+                        const duration = 2000; // 2 seconds
+                        const start = 0;
+                        const increment = target / (duration / 16);
+                                            
+                        let current = start;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                clearInterval(timer);
+                                current = target;
+                            }
+                            element.textContent = Math.floor(current).toLocaleString();
+                        }, 16);
+                                            
+                        observer.unobserve(element);
+                    }
+                });
+            }, options);
+                    
+            countUpElements.forEach(element => {
+                observer.observe(element);
+            });
+                    
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                                        
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                                        
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
