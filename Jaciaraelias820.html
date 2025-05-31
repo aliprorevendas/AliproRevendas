@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AliPro Revendas | Plataforma Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-item.active {
+            color: #6366f1;
+            position: relative;
+        }
+        
+        .nav-item.active:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #6366f1;
+            border-radius: 50%;
+        }
+        
+        .avatar-placeholder {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            width: 90%;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+        
+        .whatsapp-btn i {
+            margin-right: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .level-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Improved product image styling */
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Fixed height for all product images */
+            overflow: hidden;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed to contain to show full product */
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Notification styles */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        .notification-dropdown.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+        }
+
+        .bell-btn {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .bell-btn:hover {
+            color: #6366f1;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="text-dark">
+    <!-- Premium Header -->
+    <header class="fixed top-0 left-0 right-0 glass-card shadow-sm z-50 border-b border-gray-100">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="gradient-bg w-10 h-10 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-bolt text-white text-lg"></i>
+                </div>
+                <div class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AliPro<span class="font-medium">Revendas</span></div>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="relative">
+                    <button id="notificationBtn" class="bell-btn text-gray-500 transition-all">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                    <div id="notificationDropdown" class="notification-dropdown">
+                        <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                            <h3 class="font-semibold">Notificações</h3>
+                            <button class="text-sm text-primary">Marcar todas como lidas</button>
+                        </div>
+                        <div class="p-8 text-center">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bell-slash text-gray-400 text-xl"></i>
+                            </div>
+                            <h4 class="font-medium text-gray-700 mb-1">Nenhuma notificação</h4>
+                            <p class="text-sm text-gray-500">Você não tem novas notificações no momento</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="avatar-placeholder w-10 h-10 rounded-full flex items-center justify-center shadow">
+                        <i class="fas fa-user text-primary"></i>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="font-medium">Olá, <span id="username">Usuário</span></div>
+                        <div class="text-xs text-gray-500" id="user-level">Nível Basic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-24 md:pb-0">
+        <!-- Pages Container -->
+        <div class="container mx-auto px-6 py-6">
+            <!-- Page 1: Dashboard -->
+            <div id="home-page" class="page active">
+                <!-- Greeting and Stats -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold">Visão Geral</h1>
+                        <div class="flex items-center space-x-2">
+                            <button class="text-gray-500 hover:text-primary">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                                                                        
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="text-gray-500 text-sm font-medium">Tarefas concluídas</div>
+                                    <div class="text-2xl font-bold mt-1" id="completed-tasks">0</div>
+                                </div>
+                                <div class="w-12 h-12 rounded-lg bg-indigo-50 flex items-center justify-center">
+                                    <i class="fas fa-check-circle text-primary text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100 flex items-center">
+                                <span class="text-green-500 text-sm font-medium" id="monthly-tasks">+0 este mês</span>
+                            </div>
+                        </div>
+                                                                            
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="text-gray-500 text-sm font-medium">Lucro total</div>
+                                    <div class="text-2xl font-bold mt-1" id="total-profit">R$ 00,00</div>
+                                </div>
+                                <div class="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-green-500 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100 flex items-center">
+                                <span class="text-green-500 text-sm font-medium" id="monthly-profit">+0% este mês</span>
+                            </div>
+                        </div>
+                                                                            
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="text-gray-500 text-sm font-medium">Saldo disponível</div>
+                                    <div class="text-2xl font-bold mt-1" id="available-balance">R$ 00,00</div>
+                                </div>
+                                <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
+                                    <i class="fas fa-wallet text-blue-500 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100">
+                                <button class="text-primary text-sm font-medium" onclick="openWithdrawModal()">Solicitar saque</button>
+                            </div>
+                        </div>
+                    </div>
+                                                                        
+                    <!-- How it works section -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mb-8">
+                        <h2 class="text-xl font-bold mb-4 text-center">Como funciona a revenda na AliPro?</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="flex flex-col items-center text-center p-4">
+                                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mb-4">
+                                    <i class="fas fa-search text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold mb-2">1. Compre os produtos disponíveis
+                                </h3>
+                                <p class="text-gray-600 text-sm">Escolha entre os produtos já selecionados pela nossa equipe, todos com alto potencial de revenda e lucratividade. Basta clicar em "Comprar para Revender".</p>
+                            </div>
+                            <div class="flex flex-col items-center text-center p-4">
+                                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mb-4">
+                                    <i class="fas fa-shopping-cart text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold mb-2">2. A revenda acontece automaticamente
+                                </h3>
+                                <p class="text-gray-600 text-sm">Após a compra, os produtos são revendidos por meio de nossa rede de afiliados e canais estratégicos. Você não precisa anunciar nem entregar — cuidamos de tudo.
+                                </p>
+                             </div>
+                            <div class="flex flex-col items-center text-center p-4">
+                                <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mb-4">
+                                    <i class="fas fa-money-bill-wave text-white text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold mb-2">3. Receba seus lucros de forma automática
+                                </h3>
+                                <p class="text-gray-600 text-sm">Assim que os produtos forem revendidos, seus lucros serão creditados diretamente. O prazo é variável, pois depende da velocidade da revenda, mas o repasse é feito automaticamente assim que a venda for concluída.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-100">
+                            <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                <i class="fas fa-info-circle mr-2"></i> Importante
+                            </h4>
+                            <p class="text-blue-700 text-sm">
+                                Na AliPro, você não recebe o produto fisicamente. Ao comprar, você está adquirindo o direito sobre um item que será automaticamente revendível por nossos canais.
+                                Toda logística, divulgação e entrega ao cliente final são feitas por nós.
+                                Você lucra sem estoque, sem envio e sem exposição pessoal — com repasse automático assim que a revenda acontecer.
+                                                            
+                            </p>
+                        </div>
+                    </div>
+                                                                        
+                    <!-- Products Section -->
+                    <div class="mb-4 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Produtos para revenda</h2>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">Ordenar por:</span>
+                            <select class="text-sm border-0 bg-gray-50 rounded-lg focus:ring-1 focus:ring-primary">
+                                <option>Maior lucro</option>
+                                <option>Menor preço</option>
+                                <option>Mais vendidos</option>
+                            </select>
+                        </div>
+                    </div>
+                                                                        
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Product 1 -->
+                        <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
+                            <div class="product-image-container">
+                                <img src="https://img.kalunga.com.br/fotosdeprodutos/427293d.jpg" alt="Smartwatch D20" class="product-image">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Caneta Fine Pen 0.4mm Classic Black Faber-Castell BT 1 UN
+                                        </h3>
+                                        <div class="text-xs text-gray-500">Material Escolar</div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                        <span class="text-xs font-medium">4.8</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-gray-500 text-sm">Investimento</span>
+                                        <span class="font-medium">R$ 8,70</span>
+                                    </div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-gray-500 text-sm">Lucro estimado</span>
+                                        <span class="text-green-500 font-semibold">+R$ 3,80</span>
+                                    </div>
+                                    <a href="https://pay.sunize.com.br/ssyyViVk" target="_blank" class="w-full gradient-bg hover:opacity-90 text-white py-2 px-4 rounded-lg transition-all flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Comprar para Revender
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                                                            
+                        <!-- Product 2 -->
+                        <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
+                            <div class="product-image-container">
+                                <img src="https://img.kalunga.com.br/fotosdeprodutos/240440d.jpg" alt="Fone Bluetooth 5.0" class="product-image">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Corretivo Líquido Eco 18ml Faber-Castell BT 1 UN
+                                        </h3>
+                                        <div class="text-xs text-gray-500">Material Escolar</div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                        <span class="text-xs font-medium">4.5</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-gray-500 text-sm">Investimento</span>
+                                        <span class="font-medium">R$ 6,60</span>
+                                    </div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-gray-500 text-sm">Lucro estimado</span>
+                                        <span class="text-green-500 font-semibold">+R$ 1,20</span>
+                                    </div>
+                                    <a href="https://pay.sunize.com.br/cdcCgAqT" target="_blank" class="w-full gradient-bg hover:opacity-90 text-white py-2 px-4 rounded-lg transition-all flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Comprar para Revender
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                                                            
+                        <!-- Product 3 -->
+                        <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
+                            <div class="product-image-container">
+                                <img src="https://m.media-amazon.com/images/I/711zDr3y8ZL._AC_SX522_.jpg" alt="Caixa de Som JBL Mini" class="product-image">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Caneta Esferográfica Scrit 1.0mm, CIS, Blister c/3 unidades (2 Azul, 1 Preta)
+                                        </h3>
+                                        <div class="text-xs text-gray-500">Material Escolar</div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                        <span class="text-xs font-medium">4.9</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-gray-500 text-sm">Investimento</span>
+                                        <span class="font-medium">R$ 5,55</span>
+                                    </div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-gray-500 text-sm">Lucro estimado</span>
+                                        <span class="text-green-500 font-semibold">+R$ 2,20</span>
+                                    </div>
+                                    <a href="https://pay.sunize.com.br/OnfhUJmJ" target="_blank" class="w-full gradient-bg hover:opacity-90 text-white py-2 px-4 rounded-lg transition-all flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Comprar para Revender
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                                                            
+                        <!-- Product 4 -->
+                        <div class="product-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
+                            <div class="product-image-container">
+                                <img src="https://img.kalunga.com.br/fotosdeprodutos/027250d.jpg" alt="Câmera Wi-Fi 360º" class="product-image">
+                            </div>
+                            <div class="p-5">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Apontador com Depósito Retangular, Cores Sortidas, Faber-Castell - BT 1 UN
+                                        </h3>
+                                        <div class="text-xs text-gray-500">Material Escolar</div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                                        <span class="text-xs font-medium">4.7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-gray-500 text-sm">Investimento</span>
+                                        <span class="font-medium">R$ 5,90</span>
+                                    </div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-gray-500 text-sm">Lucro estimado</span>
+                                        <span class="text-green-500 font-semibold">+R$ 2,15</span>
+                                    </div>
+                                    <a href="https://pay.sunize.com.br/SSqcwlfh" target="_blank" class="w-full gradient-bg hover:opacity-90 text-white py-2 px-4 rounded-lg transition-all flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Comprar para Revender
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Level Progress -->
+            <div id="level-page" class="page">
+                <div class="flex flex-col items-center py-8">
+                    <h1 class="text-3xl font-bold mb-6 text-center">Seu Progresso</h1>
+                                                                        
+                    <div class="level-card rounded-2xl p-8 max-w-2xl w-full mb-8">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="w-32 h-32 gradient-bg rounded-full flex items-center justify-center mb-6 md:mb-0 md:mr-8">
+                                <i class="fas fa-trophy text-white text-5xl"></i>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <h2 class="text-2xl font-bold mb-2" id="current-level">Nível Basic</h2>
+                                <p class="text-gray-600 mb-4">Continue realizando tarefas para subir de nível e desbloquear benefícios exclusivos!</p>
+                                                                            
+                                <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                                    <div class="gradient-bg h-4 rounded-full" id="level-progress-bar" style="width: 1%"></div>
+                                </div>
+                                <div class="flex justify-between text-sm text-gray-600">
+                                    <span id="level-percentage">1% completo</span>
+                                    <span id="next-level-text">Próximo nível: 16 tarefas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                        
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+                        <!-- Current Level Benefits -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center mr-3">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Seus Benefícios</h3>
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Aumente seus lucros com tarefas de maior valor.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Receba seus saques de forma mais rápida e eficiente.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Realize até 4 tarefas por dia, maximizando seus ganhos.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                                                                            
+                        <!-- Next Level Benefits -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-arrow-up text-purple-500"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Próximo Nível</h3>
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>Desbloqueie acesso a produtos exclusivos e ofertas especiais.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>Ganhe mais a cada tarefa, com retorno superior.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>Receba suporte prioritário para otimizar seus ganhos.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                                                                            
+                        <!-- Level Progress -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-chart-line text-blue-500"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Seu Progresso</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Tarefas concluídas</span>
+                                        <span class="font-medium" id="tasks-completed">1/100</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="gradient-bg h-2 rounded-full" id="tasks-progress-bar" style="width: 1%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Lucro acumulado</span>
+                                        <span class="font-medium" id="accumulated-profit">R$ 0/R$ 1.000</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="gradient-bg h-2 rounded-full" id="profit-progress-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Dias ativos</span>
+                                        <span class="font-medium" id="active-days">1/30</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="gradient-bg h-2 rounded-full" id="days-progress-bar" style="width: 3%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                        
+                    <div class="mt-8 text-center">
+                        <h3 class="text-xl font-semibold mb-4">Como subir de nível mais rápido?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-tasks text-white"></i>
+                                </div>
+                                <h4 class="font-medium mb-2">Complete tarefas diárias</h4>
+                                <p class="text-sm text-gray-600">Cada tarefa concluída conta para seu progresso</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-calendar-check text-white"></i>
+                                </div>
+                                <h4 class="font-medium mb-2">Seja consistente</h4>
+                                <p class="text-sm text-gray-600">Logins consecutivos aceleram seu progresso</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-bullhorn text-white"></i>
+                                </div>
+                                <h4 class="font-medium mb-2">Indique amigos</h4>
+                                <p class="text-sm text-gray-600">Cada indicação conta como 4 tarefas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Withdraw -->
+            <div id="withdraw-page" class="page">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-2/3">
+                        <h1 class="text-2xl font-bold mb-6">Solicitar Saque</h1>
+                                                                        
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h2 class="text-lg font-semibold">Saldo disponível</h2>
+                                    <p class="text-gray-500 text-sm">Valor que pode ser sacado agora</p>
+                                </div>
+                                <div class="text-3xl font-bold text-green-500" id="withdraw-balance">R$ 00,00</div>
+                            </div>
+                                                                            
+                            <div class="border-t border-gray-100 pt-6 mb-6">
+                                <h3 class="text-lg font-semibold mb-4">Método de saque</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="border-2 border-primary rounded-xl p-4 flex items-center cursor-pointer">
+                                        <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fab fa-pix text-primary text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">PIX</div>
+                                            <div class="text-xs text-gray-500">Disponível em até 1h</div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-xl p-4 flex items-center cursor-pointer hover:border-primary">
+                                        <div class="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fas fa-university text-gray-500 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">Transferência Bancária</div>
+                                            <div class="text-xs text-gray-500">1-3 dias úteis</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                                            
+                            <div class="border-t border-gray-100 pt-6">
+                                <h3 class="text-lg font-semibold mb-4">Informações para saque</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Valor do saque</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <span class="text-gray-500">R$</span>
+                                            </div>
+                                            <input type="text" value="00,00" class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Chave PIX</label>
+                                        <input type="text" placeholder="CPF, e-mail, telefone ou chave aleatória" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                        
+                    <div class="md:w-1/3">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-6">
+                            <h2 class="text-lg font-semibold mb-4">Resumo do saque</h2>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Valor solicitado</span>
+                                    <span class="font-medium">R$ 00,00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Taxa de serviço</span>
+                                    <span class="text-green-500">Grátis</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Método</span>
+                                    <span class="font-medium">PIX</span>
+                                </div>
+                                <div class="border-t border-gray-200 pt-3 flex justify-between">
+                                    <span class="font-medium">Total a receber</span>
+                                    <span class="font-bold text-primary">R$ 00,00</span>
+                                </div>
+                            </div>
+                                                                            
+                            <button class="w-full gradient-bg hover:opacity-90 text-white py-3 px-4 rounded-lg transition-all flex items-center justify-center mb-4" onclick="openWithdrawModal()">
+                                <i class="fas fa-paper-plane mr-2"></i> Confirmar Saque
+                            </button>
+                                                                            
+                            <div class="text-xs text-gray-500">
+                                <p class="mb-2">Os saques são processados manualmente por nossa equipe de pagamentos.</p>
+                                <p>Para dúvidas, entre em contato com nosso suporte.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Support -->
+            <div id="support-page" class="page">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-2/3">
+                        <h1 class="text-2xl font-bold mb-6">Central de Ajuda</h1>
+                                                                        
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-headset text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-semibold">Precisa de ajuda?</h2>
+                                    <p class="text-gray-500">Nossa equipe está pronta para te ajudar</p>
+                                </div>
+                            </div>
+                                                                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div class="border border-gray-200 rounded-xl p-4 hover:border-primary transition-colors cursor-pointer">
+                                    <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-3">
+                                        <i class="fas fa-question-circle text-primary"></i>
+                                    </div>
+                                    <h3 class="font-medium mb-1">Perguntas Frequentes</h3>
+                                    <p class="text-sm text-gray-500">Encontre respostas para dúvidas comuns</p>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-4 hover:border-primary transition-colors cursor-pointer">
+                                    <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-3">
+                                        <i class="fas fa-book text-primary"></i>
+                                    </div>
+                                    <h3 class="font-medium mb-1">Tutoriais</h3>
+                                    <p class="text-sm text-gray-500">Aprenda a usar a plataforma</p>
+                                </div>
+                            </div>
+                                                                            
+                            <div class="border-t border-gray-100 pt-6">
+                                <h3 class="text-lg font-semibold mb-4">Entre em contato</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Assunto</label>
+                                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary">
+                                            <option>Selecione um assunto</option>
+                                            <option>Problemas com pagamento</option>
+                                            <option>Dúvidas sobre produtos</option>
+                                            <option>Problemas técnicos</option>
+                                            <option>Outros</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
+                                        <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Descreva seu problema ou dúvida..."></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Anexos (opcional)</label>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                            <i class="fas fa-cloud-upload-alt text-gray-400 text-2xl mb-2"></i>
+                                            <p class="text-sm text-gray-500">Arraste arquivos aqui ou clique para selecionar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                        
+                    <div class="md:w-1/3">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-6">
+                            <h2 class="text-lg font-semibold mb-4">Atendimento rápido</h2>
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-comment-dots text-green-500"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Chat ao vivo</h3>
+                                        <p class="text-sm text-gray-500">Disponível das 9h às 18h</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fab fa-whatsapp text-blue-500"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">WhatsApp</h3>
+                                        <p class="text-sm text-gray-500">Resposta em até 15 minutos</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-envelope text-purple-500"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">E-mail</h3>
+                                        <p class="text-sm text-gray-500">Resposta em até 24h</p>
+                                    </div>
+                                </div>
+                            </div>
+                                                                            
+                            <button class="w-full whatsapp-btn" onclick="openWhatsApp()">
+                                <i class="fab fa-whatsapp"></i> Falar com Suporte
+                            </button>
+                                                                            
+                            <div class="text-xs text-gray-500">
+                                <p class="mb-2"><i class="fas fa-clock mr-1"></i> Horário de atendimento: Segunda a Sexta, das 9h às 18h</p>
+                                <p><i class="fas fa-info-circle mr-1"></i> Para emergências fuera do horário, envie um e-mail.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Saque -->
+    <div id="withdrawModal" class="modal">
+        <div class="modal-content relative">
+            <span class="modal-close" onclick="closeWithdrawModal()">&times;</span>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exclamation-circle text-red-500 text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Saque Indisponível</h2>
+                <p class="text-gray-600 mb-4">Nosso sistema de saque automático está temporariamente indisponível.</p>
+                <p class="text-gray-600 mb-6">Para realizar seu saque, entre em contato com nosso suporte via WhatsApp.</p>
+                                                                
+                <button class="w-full whatsapp-btn" onclick="openWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Falar com Suporte
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg md:hidden z-50 border-t border-gray-100">
+        <div class="flex justify-around">
+            <button data-page="home-page" class="nav-item active py-4 px-4 flex flex-col items-center text-xs transition-colors">
+                <i class="fas fa-home text-xl mb-1"></i>
+                <span>Início</span>
+            </button>
+            <button data-page="level-page" class="nav-item py-4 px-4 flex flex-col items-center text-xs transition-colors">
+                <i class="fas fa-trophy text-xl mb-1"></i>
+                <span>Nível</span>
+            </button>
+            <button data-page="withdraw-page" class="nav-item py-4 px-4 flex flex-col items-center text-xs transition-colors">
+                <i class="fas fa-money-bill-wave text-xl mb-1"></i>
+                <span>Saque</span>
+            </button>
+            <button data-page="support-page" class="nav-item py-4 px-4 flex flex-col items-center text-xs transition-colors">
+                <i class="fas fa-headset text-xl mb-1"></i>
+                <span>Suporte</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- CONFIGURAÇÃO DO PROGRESSO DO USUÁRIO           -->
+    <!-- ============================================== -->
+    <!--          MODIFIQUE APENAS OS VALORES ABAIXO PARA ATUALIZAR          TODO O PROGRESSO DO USUÁRIO NO SITE      -->
+    <script>
+        // Configuração do progresso do usuário
+        const userProgress = {
+            // Nível atual do usuário (Basic, Intermediate, Advanced, Premium)
+            level: "Basic",
+            
+            // Tarefas concluídas (total)
+            completedTasks: 0,
+            
+            // Tarefas concluídas este mês
+            monthlyTasks: 0,
+            
+            // Lucro total acumulado
+            totalProfit: 0,
+            
+            // Lucro este mês (em porcentagem)
+            monthlyProfitPercentage: 0,
+            
+            // Saldo disponível para saque
+            availableBalance: 0,
+            
+            // Dias ativos (cada 4 tarefas = 1 dia ativo)
+            activeDays: 0,
+            
+            // Meta para próximo nível (em tarefas)
+            nextLevelGoal: 16,
+            
+            // Meta de lucro para próximo nível
+            profitGoal: 1000
+        };
+
+        // ==============================================
+        // NÃO MODIFIQUE O CÓDIGO ABAIXO DESTA LINHA
+        // ==============================================
+
+        // Função para formatar valores monetários
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL',
+                minimumFractionDigits: 2
+            }).format(value);
+        }
+
+        // Função para calcular porcentagem
+        function calculatePercentage(value, total) {
+            return Math.min(100, Math.round((value / total) * 100));
+        }
+
+        // Função para atualizar todos os elementos do progresso
+        function updateProgress() {
+            // Calcular valores derivados
+            const tasksPercentage = calculatePercentage(userProgress.completedTasks, userProgress.nextLevelGoal);
+            const profitPercentage = calculatePercentage(userProgress.totalProfit, userProgress.profitGoal);
+            const daysPercentage = calculatePercentage(userProgress.activeDays, 30);
+
+            // Atualizar dashboard
+            document.getElementById('completed-tasks').textContent = userProgress.completedTasks;
+            document.getElementById('monthly-tasks').textContent = `+${userProgress.monthlyTasks} este mês`;
+            document.getElementById('total-profit').textContent = formatCurrency(userProgress.totalProfit);
+            document.getElementById('monthly-profit').textContent = `+${userProgress.monthlyProfitPercentage}% este mês`;
+            document.getElementById('available-balance').textContent = formatCurrency(userProgress.availableBalance);
+
+            // Atualizar página de nível
+            document.getElementById('current-level').textContent = `Nível ${userProgress.level}`;
+            document.getElementById('user-level').textContent = `Nível ${userProgress.level}`;
+            document.getElementById('level-progress-bar').style.width = `${tasksPercentage}%`;
+            document.getElementById('level-percentage').textContent = `${tasksPercentage}% completo`;
+            document.getElementById('next-level-text').textContent = `Próximo nível: ${userProgress.nextLevelGoal} tarefas`;
+
+            document.getElementById('tasks-completed').textContent = `${userProgress.completedTasks}/${userProgress.nextLevelGoal}`;
+            document.getElementById('tasks-progress-bar').style.width = `${tasksPercentage}%`;
+
+            document.getElementById('accumulated-profit').textContent = `${formatCurrency(userProgress.totalProfit)}/${formatCurrency(userProgress.profitGoal)}`;
+            document.getElementById('profit-progress-bar').style.width = `${profitPercentage}%`;
+
+            document.getElementById('active-days').textContent = `${userProgress.activeDays}/30`;
+            document.getElementById('days-progress-bar').style.width = `${daysPercentage}%`;
+
+            // Atualizar página de saque
+            document.getElementById('withdraw-balance').textContent = formatCurrency(userProgress.availableBalance);
+        }
+
+        // Atualizar progresso quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set username from localStorage or default
+            const username = localStorage.getItem('username') || 'Usuário';
+            document.getElementById('username').textContent = username;
+                                            
+            // Navigation buttons
+            const navButtons = document.querySelectorAll('[data-page]');
+            const pages = document.querySelectorAll('.page');
+                                            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-page');
+                                                    
+                    // Update active state for buttons
+                    navButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                                                    
+                    // Show target page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    document.getElementById(targetPage).classList.add('active');
+                                                    
+                    // Scroll to top when changing pages
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+                                            
+            // Product buttons (would normally redirect to checkout)
+            const productButtons = document.querySelectorAll('.product-card button');
+            productButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // In a real app, this would redirect to checkout
+                    const productName = this.closest('.product-card').querySelector('h3').textContent;
+                    alert(`Você será redirecionado para comprar "${productName}" para revenda.`);
+                });
+            });
+
+            // Notification button functionality
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            
+            notificationBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('active');
+                
+                // Add slight animation to the bell
+                this.classList.add('animate-bell');
+                setTimeout(() => {
+                    this.classList.remove('animate-bell');
+                }, 300);
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn) {
+                    notificationDropdown.classList.remove('active');
+                }
+            });
+
+            // Atualizar o progresso do usuário
+            updateProgress();
+        });
+
+        // Modal functions
+        function openWithdrawModal() {
+            document.getElementById('withdrawModal').style.display = 'flex';
+        }
+
+        function closeWithdrawModal() {
+            document.getElementById('withdrawModal').style.display = 'none';
+        }
+
+        function openWhatsApp() {
+            const whatsappUrl = 'https://wa.me/+5518981319814?text=Olá,%20preciso%20de%20ajuda%20com%20o%20saque%20na%20plataforma%20AliPro%20Revendas.';
+            window.open(whatsappUrl, '_blank');
+            closeWithdrawModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('withdrawModal');
+            if (event.target == modal) {
+                closeWithdrawModal();
+            }
+        }
+
+        // Add animation to the bell icon
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .animate-bell {
+                animation: bellShake 0.3s ease;
+            }
+            
+            @keyframes bellShake {
+                0% { transform: rotate(0deg); }
+                25% { transform: rotate(10deg); }
+                50% { transform: rotate(-10deg); }
+                75% { transform: rotate(5deg); }
+                100% { transform: rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
